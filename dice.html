@@ -1,0 +1,163 @@
+<html>
+	<head>
+		<title>RPG Dice</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script>
+		$(document).ready(function(){
+			$("#d4_btn").unbind();
+			$("#d6_btn").unbind();
+			$("#d8_btn").unbind();
+			$("#d10_btn").unbind();
+			$("#d12_btn").unbind();
+			$("#d20_btn").unbind();
+			$("#d100_btn").unbind();
+			
+			
+			$("#d4_btn").bind('click',function(){
+				var mod = $("#d4_mod_num").val();
+				var dices = $("#d4_roll_num").val();
+				roll(4,dices,mod);
+			});
+			
+			$("#d6_btn").bind('click',function(){
+				var mod = $("#d6_mod_num").val();
+				var dices = $("#d6_roll_num").val();
+				roll(6,dices,mod);
+			});
+			
+			$("#d8_btn").bind('click',function(){
+				var mod = $("#d8_mod_num").val();
+				var dices = $("#d8_roll_num").val();
+				roll(8,dices,mod);
+			});
+			
+			$("#d10_btn").bind('click',function(){
+				var mod = $("#d10_mod_num").val();
+				var dices = $("#d10_roll_num").val();
+				roll(10,dices,mod);
+			});
+			
+			$("#d12_btn").bind('click',function(){
+				var mod = $("#d12_mod_num").val();
+				var dices = $("#d12_roll_num").val();
+				roll(12,dices,mod);
+			});
+			
+			$("#d20_btn").bind('click',function(){
+				var mod = $("#d20_mod_num").val();
+				var dices = $("#d20_roll_num").val();
+				roll(20,dices,mod);
+			});
+			
+			$("#d100_btn").bind('click',function(){
+				var mod = $("#d100_mod_num").val();
+				var dices = $("#d100_roll_num").val();
+				roll(100,dices,mod);
+			});
+			
+			function roll(dsize, dices,modifier)
+			{
+				var dsize = parseInt(dsize);
+				var dices = parseInt(dices);
+				var modifier = parseInt(modifier);
+				
+				if(dices<1){ dices = 1; }
+				
+				var result = 0;
+				var result_list = "";
+				for(var i = 0; i<dices;i++)
+				{
+					var roll = Math.floor(Math.random()*dsize)+1;
+					result_list += roll+",";
+					result+=roll;
+				}
+				result+=modifier;
+				result_list = result_list.slice(0,-1);
+				
+				if(modifier>0)
+				{
+					$("#roll_history").prepend(dices+"d"+dsize+"+"+modifier+" = "+result+" :: "+result_list+"\n");
+				}
+				else if(modifier<0)
+				{
+					$("#roll_history").prepend(dices+"d"+dsize+modifier+" = "+result+" :: "+result_list+"\n");
+				}
+				else
+				{
+					$("#roll_history").prepend(dices+"d"+dsize+" = "+result+" :: "+result_list+"\n");
+				}
+			}
+		});
+		</script>
+		<style type="text/css">
+			body,textarea { font-family: monospace; }
+			h1 { padding: 0px; margin: 0px; text-align: center; font-size: 5em; }
+			#frame { width: 800px; margin: 0px auto; border: 1px solid #000; padding: 15px; border-radius: 10px; }
+			#dice_list { margin-bottom: 10px; padding-bottom: 10px; width: 300px; float: left;}
+			th { text-align: left; }
+			td { padding-right: 10px; }
+			textarea { width: 500px; height: 300px; }
+			#d4_roll_num,#d6_roll_num,#d8_roll_num,#d10_roll_num,#d12_roll_num,#d20_roll_num,#d100_roll_num,
+			#d4_mod_num,#d6_mod_num,#d8_mod_num,#d10_mod_num,#d12_mod_num,#d20_mod_num,#d100_mod_num { width: 50px; }
+			#footer { font-size: 0.9em; }
+		</style>
+	</head>
+<body>
+	<div id="frame">
+		<h1>RPG Dice</h1>
+		<table id="dice_list">
+			<thead>
+				<tr>
+					<th>Dice</th>
+					<th>Modifier</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="number" id="d4_roll_num" value="1"/> d4</td>
+					<td><input type="number" id="d4_mod_num" value="0"/></td>
+					<td><button id="d4_btn">Roll</button></td>
+				</tr>
+				<tr>
+					<td><input type="number" id="d6_roll_num" value="1"/> d6</td>
+					<td><input type="number" id="d6_mod_num" value="0"/></td>
+					<td><button id="d6_btn">Roll</button></td>
+				</tr>
+				<tr>
+					<td><input type="number" id="d8_roll_num" value="1"/> d8</td>
+					<td><input type="number" id="d8_mod_num" value="0"/></td>
+					<td><button id="d8_btn">Roll</button></td>
+				</tr>
+				<tr>
+					<td><input type="number" id="d10_roll_num" value="1"/> d10</td>
+					<td><input type="number" id="d10_mod_num" value="0"/></td>
+					<td><button id="d10_btn">Roll</button></td>
+				</tr>
+				<tr>
+					<td><input type="number" id="d12_roll_num" value="1"/> d12</td>
+					<td><input type="number" id="d12_mod_num" value="0"/></td>
+					<td><button id="d12_btn">Roll</button></td>
+				</tr>
+				<tr>
+					<td><input type="number" id="d20_roll_num" value="1"/> d20</td>
+					<td><input type="number" id="d20_mod_num" value="0"/></td>
+					<td><button id="d20_btn">Roll</button></td>
+				</tr>
+				<tr>
+					<td><input type="number" id="d100_roll_num" value="1"/> d100</td>
+					<td><input type="number" id="d100_mod_num" value="0"/></td>
+					<td><button id="d100_btn">Roll</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<textarea id="roll_history" readonly="readonly"></textarea>
+		<div id="footer">
+			<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">RPG Dice kit</span> by 
+			<span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Ilari Saastamoinen</span> is licensed under a 
+			<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+			<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />
+		</div>
+	</div>
+</body>
+</html>
